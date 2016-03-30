@@ -1,10 +1,10 @@
 <?php
  function getAuthCookie($nitroNSIP,$nitroUser,$nitroPass) {
-	$nitroUrl    = "http://$nitroNSIP/nitro/v1/config/login/";
+    $nitroUrl    = "http://$nitroNSIP/nitro/v1/config/login/";
 	$nitroReq    = "POST";
 	$nitroData   = '{"login":{"username":"'.$nitroUser.'","password":"'.$nitroPass.'"}}';
 	$nitroHeader = "Content-Type: application/vnd.com.citrix.netscaler.login+json";
-    
+
     $ch = curl_init($nitroUrl);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -12,8 +12,7 @@
 	curl_setopt($ch, CURLOPT_HTTPHEADER,array($nitroHeader));
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $nitroData);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $nitroReq);
-    
-   $result = curl_exec($ch);
+    $result = curl_exec($ch);
    
 	preg_match_all('/^Set-Cookie:\s*([^\r\n]*)/mi', $result, $ms);
 	$cookies     = array();
